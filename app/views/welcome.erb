@@ -1,13 +1,31 @@
 <div class="container">
   <header><img src="images/corneal-small.png" class="img-responsive main-image"></header>
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2"> 
     <h2>To Do Today</h2>
 
     <div class="content">
       <p>Welcome! Use this page to organize and manage your daily tasks. </p>
       <p>Please <a href="/login">log in</a> to view your tasks for today.</p>
       <p>First time? Sign up <a href="/signup">here</a></p>
+      <br>
+
+      <div class="login">
+        <h3>Log in here:</h3>
+        <br>
+        <form action="POST" method="/login">
+          <label for="username">Username: </label>
+          <input type="text" id="username" name="user_name"><br>
+          
+          <label for="Password">Password: </label>
+          <input type="text" id="password" name="password"><br><br>
+          
+          <input type="submit" value="Log In">
+        </form>
+      </div>
+
     </div>
+
+
 
     <div class="sidebar">
       <h3>Environment</h3>
