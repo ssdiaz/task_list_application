@@ -1,3 +1,3 @@
-class TasksController < Sinatra::Base
+class TasksController < ApplicationController
 
 end
