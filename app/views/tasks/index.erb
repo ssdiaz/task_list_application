@@ -1,0 +1,64 @@
+
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css">  
+
+    <style>
+        table, th, td {
+        border: 1px solid black;
+        text-align: center;
+        }
+    </style>
+  </head>
+  <body id="page-top">
+
+
+    <br>
+        Here are your tasks for today!
+    <br>
+    <br> need to make these check boxes where you can complete them and make the strike through.
+    <br> then need to make an option to clear day, as if user is user they want to clear
+    <br>      
+    <br>
+
+
+     <%# @current_user.tasks.each do |task| %>
+    <%# <form method="PATCH" action="/tasks"> //     <input id="hidden" type="hidden" name="_method" value="patch">  %>
+
+
+    <table>
+        <tr>
+            <th>Status</th>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+        </tr>
+
+        <%@tasks.each do |task|%>
+        <tr>
+            <form method="PATCH" action="/tasks"> 
+                <td><input type="checkbox" name="status"></td>
+                <td><%=task.name%></td>
+                <td><%=task.description%></td>
+                <td><%=task.priority%></td>
+                <td><%=task.deadline%></td>
+                <td><input type="submit" value="Delete"></td>
+            </form>
+        </tr>
+        <%end %>
+            
+        <tr>
+            <form method="POST" action="/tasks/new">
+                <td></td>
+                <td><input type="text" name="task[name]" id="task_name"></td>
+                <td><input type="text" name="task[description]" id="task_description"></td>
+                <td><input type="text" name="task[priority]" id="task_priority"></td>
+                <td><input type="text" name="task[deadline]" id="task_deadline"></td>
+                <td><input type="submit" value="Add Task"></td>
+            </form>
+        </tr>
+    </table>
