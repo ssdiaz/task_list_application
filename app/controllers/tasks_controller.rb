@@ -5,9 +5,6 @@ class TasksController < ApplicationController
         erb :'/tasks/index'
     end
 
-    get '/tasks/new' do 
-    end
-
     post '/tasks/new' do
         @task = Task.create(params[:task])
         redirect '/tasks'
