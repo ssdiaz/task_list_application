@@ -32,25 +32,28 @@
     <table>
         <tr>
             <th>Status</th>
-            <th>Task</th>
+            <th>*Task</th>
             <th>Description</th>
             <th>Priority</th>
             <th>Deadline</th>
         </tr>
 
+
         <%@tasks.each do |task|%>
         <tr>
-            <form method="PATCH" action="/tasks"> 
+            <%# <form method="POST" action="/tasks/<%=task.id%>">  %>
                 <td><input type="checkbox" name="status"></td>
                 <td><%=task.name%></td>
                 <td><%=task.description%></td>
                 <td><%=task.priority%></td>
                 <td><%=task.deadline%></td>
+            <form method="POST" action="/tasks/<%=task.id%>"> 
+                <input id="hidden" type="hidden" name="_method" value="delete">
                 <td><input type="submit" value="Delete"></td>
             </form>
         </tr>
         <%end %>
-            
+
         <tr>
             <form method="POST" action="/tasks/new">
                 <td></td>
