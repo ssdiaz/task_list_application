@@ -1,20 +1,16 @@
-
-
-
-  <head>
-    <meta charset="UTF-8">
+<head>
     <title>title</title>
-    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css">  
 
     <style>
         table, th, td {
-        border: 1px solid black;
-        text-align: center;
+            border: 1px solid black;
+            text-align: center;
         }
-    </style>
-  </head>
-  <body id="page-top">
 
+    </style>
+</head>
+
+<body id="page-top">
 
     <br>
         Here are your tasks for today!
@@ -41,19 +37,41 @@
 
         <%@tasks.each do |task|%>
         <tr>
-            <%# <form method="POST" action="/tasks/<%=task.id%>">  %>
-                <td><input type="checkbox" name="status"></td>
-                <td><%=task.name%></td>
-                <td><%=task.description%></td>
-                <td><%=task.priority%></td>
-                <td><%=task.deadline%></td>
+
+        <label>
+
+
+                <%if task.status == "Complete"%>
+                    <td><input type="checkbox" name="task[id]" id="task_id" <%='checked' if task.status == "Complete"%>></td>
+                    <% else %>
+                    <td><input type="checkbox" name="task[id]" id="task_id" ></td>
+                <%end%>
+                <td><label for="task[id]"><%=task.name%></label></td>
+                <td><label for="task[id]"><%=task.description%></label></td>
+                <td><label for="task[id]"><%=task.priority%></label></td>
+                <td><label for="task[id]"><%=task.deadline%></label></td>
+                <td><label for="task[id]"><%=task.status%></label></td>
+
+            <%# COMPLETE TASK %>
+            <form method="POST" action="/tasks/<%=task.id%>"> 
+                <input id="hidden" type="hidden" name="_method" value="patch">
+                <td><input type="submit" value="Complete"></td>
+            </form>
+
+            <%# DELETE TASK %>
             <form method="POST" action="/tasks/<%=task.id%>"> 
                 <input id="hidden" type="hidden" name="_method" value="delete">
-                <td><input type="submit" value="Delete"></td>
+                <td><input type="submit"  value="Delete"></td>
             </form>
+
+            </label>
+ 
         </tr>
+
         <%end %>
 
+
+        <%# NEW TASK %>
         <tr>
             <form method="POST" action="/tasks/new">
                 <td></td>
@@ -64,4 +82,15 @@
                 <td><input type="submit" value="Add Task"></td>
             </form>
         </tr>
+
     </table>
+
+
+
+
+
+<br>
+Items completed today: <%=@items_completed%>
+
+
+</body>
