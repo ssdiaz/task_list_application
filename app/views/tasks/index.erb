@@ -7,6 +7,14 @@
             text-align: center;
         }
 
+    <script>
+        function myFunction() {
+            document.getElementById("task_status").disabled = true;
+        }
+    </script>
+
+        document.getElementById("task_status").disabled = true;
+
     </style>
 </head>
 
@@ -33,38 +41,32 @@
             <th>Priority</th>
             <th>Deadline</th>
         </tr>
-
+/* onclick="return false;" */
 
         <%@tasks.each do |task|%>
         <tr>
+            <%if task.status == "Complete"%>
+                <td><input type="checkbox" name="task[id]" id="task_status" onclick="return false"  <%='checked' if task.status == "Complete"%> ></td>
+                <% else %>
+                 <%# COMPLETE TASK %>
+                <form method="POST" action="/tasks/<%=task.id%>"> 
+                    <input id="hidden" type="hidden" name="_method" value="patch">
+                    <td><input type="checkbox" name="task[id]" id="task_status" onclick="this.form.submit()" ></td>
+                </form>
 
-        <label>
+            <%end%>
+            <td><label for="task[id]"><%=task.name%></label></td>
+            <td><label for="task[id]"><%=task.description%></label></td>
+            <td><label for="task[id]"><%=task.priority%></label></td>
+            <td><label for="task[id]"><%=task.deadline%></label></td>
+            <td><label for="task[id]"><%=task.status%></label></td>
 
-
-                <%if task.status == "Complete"%>
-                    <td><input type="checkbox" name="task[id]" id="task_id" <%='checked' if task.status == "Complete"%>></td>
-                    <% else %>
-                    <td><input type="checkbox" name="task[id]" id="task_id" ></td>
-                <%end%>
-                <td><label for="task[id]"><%=task.name%></label></td>
-                <td><label for="task[id]"><%=task.description%></label></td>
-                <td><label for="task[id]"><%=task.priority%></label></td>
-                <td><label for="task[id]"><%=task.deadline%></label></td>
-                <td><label for="task[id]"><%=task.status%></label></td>
-
-            <%# COMPLETE TASK %>
-            <form method="POST" action="/tasks/<%=task.id%>"> 
-                <input id="hidden" type="hidden" name="_method" value="patch">
-                <td><input type="submit" value="Complete"></td>
-            </form>
 
             <%# DELETE TASK %>
             <form method="POST" action="/tasks/<%=task.id%>"> 
                 <input id="hidden" type="hidden" name="_method" value="delete">
                 <td><input type="submit"  value="Delete"></td>
             </form>
-
-            </label>
  
         </tr>
 
@@ -84,9 +86,6 @@
         </tr>
 
     </table>
-
-
-
 
 
 <br>
