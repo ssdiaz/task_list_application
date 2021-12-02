@@ -1,16 +1,11 @@
 class UsersController < ApplicationController
-
-    # get '/users/signup' do
-    #     erb :'/users/signup'
-    # end
-
-    # post '/signup' do
-    #     @user = User.new(name: params["name"], email: params["email"], password: params["password"])
-    #     @user.save
-    #     session[:user_id] = @user.id
-    #     redirect '/welcome'
-    #   end
-
-
+  # get '/account' do
+   #   @current_user = User.find_by(session[:user_id])
+  #   if @current_user
+  #     erb :'/account'
+  #   else
+  #     erb :'/error'
+  #   end
+  # end
 
 end

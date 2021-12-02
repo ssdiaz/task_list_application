@@ -5,9 +5,12 @@ class ApplicationController < Sinatra::Base
 
   configure do
     #set :public_folder, 'public'
-    enable :sessions
-    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) } #used: ruby -e "require 'securerandom'; puts SecureRandom.hex(64)"
     set :views, Proc.new { File.join(root, "../views/") }     #set :views, 'app/views'
+    enable :sessions
+    set :session_secret, "secret"
+    #set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+    #set :session_secret, SecureRandom.hex(64)
+
   end
 
   get '/' do
@@ -22,39 +25,32 @@ class ApplicationController < Sinatra::Base
     @user = User.new(name: params["name"], email: params["email"], password: params["password"])
     @user.save
     session[:user_id] = @user.id
-      #redirect to "/account"
-      redirect to '/tasks/index'
+    redirect to '/tasks/index'
   end
-
 
   get '/login' do 
     erb :'login'
   end
 
   post '/login' do
-    @user = User.find_by(:email => params[:email])
-    if @user != nil && @user.password == params[:password]
-      session[:user_id] = @user.id
-      #redirect to "/account"
-      redirect to '/tasks/index'
-    end
-    # erb :'error'
-  end
-
-  get '/account' do
-    @current_user = User.find_by(session[:user_id])
-    if @current_user
-      erb :'/account'
-    else
-      erb :'/error'
-    end
+      @user = User.find_by(email: params["email"], password: params["password"])
+      if @user != nil && @user.password == params[:password]
+          session[:user_id] = @user.id
+          redirect to '/tasks/index'
+      end
+      # erb :'error'
+      redirect '/login'
   end
 
 
-  get '/logout' do
-    session.clear
-    redirect '/'
-  end
+
+get '/logout' do
+  session.clear
+  redirect '/'
+end
+
+
+
 
 
 end
