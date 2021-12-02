@@ -16,7 +16,7 @@ class TasksController < ApplicationController
         if !params["task"]["name"].empty?
             @task = Task.new(params[:task])
             @task.status = "Open"
-           # @task.user_id = session[:user_id]
+            @task.user_id = session[:user_id]
             @task.save
         end
         redirect '/tasks/index'
