@@ -1,0 +1,109 @@
+this is my account!
+
+THIS SHOULD BE LIKE USER PROFILE STUFF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css">  
+
+    <style>
+        table, th, td {
+        border: 1px solid black;
+        text-align: center;
+        }
+    </style>
+  </head>
+  <body id="page-top">
+    <%# <% if Helpers.is_logged_in?(session) %> 
+      <%# <h1>Welcome <%= Helpers.current_user(session).username</h1> 
+      <%# <h3>Your Balance: <%= Helpers.current_user(session).balance %></h3> %>
+    
+      <a href="/logout">Log Out</a>
+    <%# <% end %> 
+
+<br>
+    <h1>DO NOT USE THIS NEEDS TO BE DELETED!!!</h1>
+<br>
+<br> need to make these check boxes where you can complete them and make the strike through.
+<br> then need to make an option to clear day, as if user is user they want to clear<br>
+
+        <%# Task name: <br>
+        Description: <br>
+        Priority: <br>
+        Date Added: <br> %>
+        
+<br>
+
+
+    <table>
+    <form method="PATCH" action="/tasks">
+        <tr>
+            <th>Status</th>
+            <th>Task name</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+        </tr>
+        <%# need to iterate each and do the below for one item. 
+            @current_user.tasks.each do |task|
+                <form method="PATCH" action="/tasks"> //     <input id="hidden" type="hidden" name="_method" value="patch">
+                    <td><input type="checkbox" name="status" />&nbsp;</td>
+                    <td>task.name</td>
+                    <td>task.description</td>
+                    <td>task.priority</td>
+                    <td>task.deadline</td>
+                    <td><input type="submit" value="Delete"></td>
+                </form>
+            </tr>
+            end %>
+
+        <tr>
+            <td><input type="checkbox" name="status" /></td>
+            <td>Clean Room</td>
+            <td>I need to clean my room by noon</td>
+            <td>Low</td>
+            <td></td>
+            <td><input type="submit" value="Delete"></td>
+        </tr>
+
+        <tr>
+            <td><input type="checkbox" name="status" /></td>
+            <td>Pay Bills</td>
+            <td>rent, credit cards</td>
+            <td>High</td>
+            <td>tomorrow</td>
+            <td><input type="submit" value="Delete"></td>
+        </tr>
+        </form>
+
+        <tr>
+            <form method="POST" action="/tasks/new">
+            <td></td>
+            <td><input type="text" id="task.name"></td>
+            <td><input type="text" id="task.description"></td>
+            <td><input type="text" id="task.priority"></td>
+            <td><input type="text" id="task.deadline"></td>
+            <td><input type="submit" name="task.name" value="Add Task"></td>
+            </form>
+        </tr>
+
+    </table>
+
+
+  </body>

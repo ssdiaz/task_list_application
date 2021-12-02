@@ -10,22 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_210945) do
+ActiveRecord::Schema.define(version: 2021_12_01_143255) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.date "deadline"
+    t.string "deadline"
     t.string "priority"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "password"
   end
 
 end
