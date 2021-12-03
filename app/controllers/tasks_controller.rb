@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
     
     get '/tasks/index' do  #show all tasks page -- need to make for account only tho. session:id is not reading. its nil
-        redirect_if_not_logged_in
+       # redirect_if_not_logged_in
         @current_user = User.find_by_id(session[:user_id])
 
         if @current_user #is true

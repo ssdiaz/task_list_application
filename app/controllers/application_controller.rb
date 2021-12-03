@@ -39,7 +39,7 @@ class ApplicationController < Sinatra::Base
       session[:user_id] = user.id
       redirect to '/tasks/index'
     else
-      flash[:message] = user.errors.full_messages.each {|message| puts message}
+      flash[:message] = user.errors.full_messages
       redirect to '/signup'
     end
 
