@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
+
   <head>
+
     <title>Task App</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/main2.css" /> 
@@ -11,12 +13,25 @@
     </div>
 
     <div class="navbar">
-      <a href="/login">Log In</a>
       <a href="/">Home</a>
+      <% if !session[:user_id] %>
+      <a href="/login">Log In</a>
+      <%end%>
+      
+      <% if session[:user_id] %>
+        <div class="navbar_logged_in">
+          <a href="/logout">Log Out</a>
+          <a href="/account">Account</a>
+          <a href="/tasks/index">Tasks</a>
+        </div>
+      <%end%>
     </div>
+
   </head>
 
+
   <body>
+
     <div class="main">
         <%# loads the view content %>
         <%= yield %>
@@ -25,5 +40,7 @@
     <div class="footer">
       <small>&copy; 2021 <strong>Task List Application</strong></small>
     </div>
+
   </body>
+
 </html>

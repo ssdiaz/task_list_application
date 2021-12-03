@@ -14,6 +14,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    @current_user = User.find_by_id(session[:user_id])
     erb :'welcome'
   end
 
@@ -41,24 +42,9 @@ class ApplicationController < Sinatra::Base
       redirect '/login'
   end
 
-
-
-get '/logout' do
-  session.clear
-  redirect '/'
-end
-
-helpers do
-  def logged_in?
-    !!session[:user_id]
+  get '/logout' do
+    session.clear
+    redirect '/'
   end
-
-  def current_user
-    User.find(session[:user_id])
-  end
-end
-
-
-
 
 end
