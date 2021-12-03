@@ -6,13 +6,10 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    color: #333;
   }
 
-  /* .container {
-    padding: 16px;
-  }   */
-
-  /* Header/logo Title */
+  /* Header */
   .header {
     padding: 10px;
     text-align: center;
@@ -38,7 +35,6 @@
     padding: 14px 16px;
     text-decoration: none;
   }  
-
   /* Style the navigation bar - LOGGED IN */
   .navbar_logged_in a {
     float: right;
@@ -106,6 +102,7 @@
     }
   }
 
+  /* form input fields */
   input[type=text], input[type=password] {
     width: 70%;
     padding: 10px 20px;
@@ -128,3 +125,19 @@
   button:hover {
     opacity: 0.8;
   }
+
+  /* buttons - Delete */
+  input[type=submit] {
+    background-color: #CFCFCF;
+    color: white;
+    padding: 8px 14px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+  }
+  input[type=submit]:hover  {
+    opacity: 0.8;
+  }
+
+

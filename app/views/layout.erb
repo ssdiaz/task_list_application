@@ -9,15 +9,16 @@
 
     <div class="header">
         <h1>Task App</h1>
-        <p>An app for your tasks</p>
+        The App for your Tasks
     </div>
 
     <div class="navbar">
-      <a href="/">Home</a>
+
       <% if !session[:user_id] %>
-      <a href="/login">Log In</a>
+        <a href="/">Home</a>
+        <a href="/login">Log In</a>
       <%end%>
-      
+
       <% if session[:user_id] %>
         <div class="navbar_logged_in">
           <a href="/logout">Log Out</a>

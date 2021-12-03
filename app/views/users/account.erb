@@ -1,13 +1,6 @@
-  <head>
-    <style>
-    /* Style the top navigation bar */
-
-    </style>
-  </head>
-
   <body id="account">
         <div class="main">
-            <h3>Edit your information here:</h3>
+            <h2>Edit your information here:</h2>
 
             <form method="POST" action="/account">
                         <%# <form method="POST" action="/<%= @user.name %>
@@ -21,9 +14,10 @@
                 <input type="text" id="email" name="email" value="<%= @current_user.email %>">
                 <br>
 
-                <button type="submit">Save Account</button>
-                    
+                <button type="submit">Save Account</button>                    
             </form>
+            <p><a href="/tasks/index">View Tasks</a></p>
+            <p><a href="/logout">Log Out</a></p>
         </div>
 
   </body>
