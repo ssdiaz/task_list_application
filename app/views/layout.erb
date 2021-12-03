@@ -2,37 +2,28 @@
 
   <head>
     <title>Task App</title>
-     <link rel="stylesheet" href="/stylesheets/main.css" /> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/main2.css" /> 
 
+    <div class="header">
+        <h1>Task App</h1>
+        <p>An app for your tasks</p>
+    </div>
 
-
-    <style>
-    .login {
-      background-color: #E5C9F6;
-      color: white;
-      padding: 20px;
-    }
-    .town {
-      background-color: yellow;
-      color: white;
-      padding: 10px;
-    }
-
-
-    </style>
-
-
+    <div class="navbar">
+      <a href="/login">Log In</a>
+      <a href="/">Home</a>
+    </div>
   </head>
 
   <body>
-    <div class="wrapper">
-
-      <%= yield %>
-
-      <footer class="branding">
-        <small>&copy; 2021 <strong>Task List Application</strong></small>
-      </footer>
+    <div class="main">
+        <%# loads the view content %>
+        <%= yield %>
     </div>
 
+    <div class="footer">
+      <small>&copy; 2021 <strong>Task List Application</strong></small>
+    </div>
   </body>
 </html>

@@ -1,53 +1,72 @@
 <head>
-    <title>title</title>
-
     <style>
-        table, th, td {
+        table {
             border: 1px solid black;
             text-align: center;
+            /* border-collapse: collapse; */
+            border-spacing: 0;
+            width: 100%;
+            /* border: 2px solid #ddd; */
+            border: 2px solid black;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            background-color: grey;
+        }
+
+        td {
+            text-align: left;
+            padding: 12px;
+            max-width: 150px;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f2f2f2;
         }
     </style>
-
-
 </head>
 
-<body id="page-top">
+<body id="tasks">
 
-    <b>WELCOME, <%=@current_user.name%></b>
-    <br>
-    id: <%=@current_user.id%>
 
-    <br>
-    Here are your tasks for today!
-    <br>
+
+        <h1>Welcome, <%= @current_user.name %>!</h1>
+        (id: <%= @current_user.id %>)
+        <br>
+        <br>
+        Here are your tasks for today!
+        <br>
 
         <table>
             <tr>
                 <th>Status</th>
-                <th>*Task</th>
+                <th>Task<sup>*</sup></th>
                 <th>Description</th>
                 <th>Priority</th>
                 <th>Deadline</th>
+                <th>Action</th>
             </tr>
-    <br>
-    * Mandatory Field
-            <%@tasks.each do |task|%>
+            <sup>*</sup> Mandatory Field
+            <br><br>
+            <% @tasks.each do |task| %>
             <tr>
-                <%if task.status == "Complete"%>
-                    <td><input type="checkbox" name="task[id]" id="task_status"  <%='checked' if task.status == "Complete"%> onclick="return false"></td>
+                <% if task.status == "Complete" %>
+                    <td><input type="checkbox" name="task[id]" id="task_status"  <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
                     <% else %>
                     <%# COMPLETE TASK %>
-                    <form method="POST" action="/tasks/<%=task.id%>"> 
+                    <form method="POST" action="/tasks/<%= task.id %>"> 
                         <input id="hidden" type="hidden" name="_method" value="patch">
                         <td><input type="checkbox" name="task[id]" id="task_status" onclick="this.form.submit()"></td>
                     </form>
-                <%end%>
-                <td><label for="task[id]"><%=task.name%></label></td>
-                <td><label for="task[id]"><%=task.description%></label></td>
-                <td><label for="task[id]"><%=task.priority%></label></td>
-                <td><label for="task[id]"><%=task.deadline%></label></td>
-                <%# <td><label for="task[id]"><%=task.status%> <%#</label></td> %>
-                 <%# <td><label for="task[id]"><%=task.user_id%> <%#</label></td>  %>
+                <% end %>
+
+                <td><label for="task[id]"><%= task.name %></label></td>
+                <td><label for="task[id]"><%= task.description %></label></td>
+                <td><label for="task[id]"><%= task.priority %></label></td>
+                <td><label for="task[id]"><%= task.deadline %></label></td>
+
                 <%# DELETE TASK %>
                 <form method="POST" action="/tasks/<%=task.id%>"> 
                     <input id="hidden" type="hidden" name="_method" value="delete">
@@ -64,12 +83,15 @@
                     <td><input type="text" name="task[deadline]"    id="task_deadline"></td>
                     <td><input type="submit" value="Add Task"></td>
                 </form>
-            </tr>
+            </tr>     
         </table>
-    <br>
-    No. of Tasks: <%=@current_user.tasks.count%>
-    <br><br>
-    Items completed today: <%=@items_completed%>
-    <br><br>
-    <a href="/logout">Log Out</a>
+
+        <br>
+        No. of Tasks: <%=@current_user.tasks.count%>
+        <br><br>
+        Items completed today: <%=@items_completed%>
+        <br><br>
+        <a href="/logout">Log Out</a>
+
+
 </body>

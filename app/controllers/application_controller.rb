@@ -38,7 +38,6 @@ class ApplicationController < Sinatra::Base
           session[:user_id] = @user.id
           redirect to '/tasks/index'
       end
-      # erb :'error'
       redirect '/login'
   end
 
@@ -49,6 +48,15 @@ get '/logout' do
   redirect '/'
 end
 
+helpers do
+  def logged_in?
+    !!session[:user_id]
+  end
+
+  def current_user
+    User.find(session[:user_id])
+  end
+end
 
 
 
