@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-
-
   <head>
-
     <title>Task App</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/main2.css" /> 
@@ -13,10 +10,9 @@
     </div>
 
     <div class="navbar">
-
       <% if !session[:user_id] %>
         <a href="/">Home</a>
-        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
       <%end%>
 
       <% if session[:user_id] %>
@@ -27,12 +23,9 @@
         </div>
       <%end%>
     </div>
-
   </head>
 
-
   <body>
-
     <div class="main">
         <%# loads the view content %>
         <%= yield %>
@@ -41,7 +34,5 @@
     <div class="footer">
       <small>&copy; 2021 <strong>Task List Application</strong></small>
     </div>
-
   </body>
-
 </html>

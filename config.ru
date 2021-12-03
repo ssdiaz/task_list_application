@@ -17,3 +17,5 @@ if ActiveRecord::Base.connection.migration_context.needs_migration?
 end
 
 run ApplicationController
+
+#file actually runs our app 

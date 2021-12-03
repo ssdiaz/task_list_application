@@ -1,27 +1,24 @@
 <body id="welcome">
     <div class="row">
-    <div class="side">
-        <p>Welcome! Use this app to view and manage your daily tasks. </p>
-        <p>Please <a href="/login">log in</a> to view your tasks for today.</p>
-    </div>
+        <div class="side">
+            <p>Welcome! Use this app to view and manage your daily tasks. </p>
+            <p>Please log in to view your tasks for today.</p>
+        </div>
+   <%# might want the login flash message here %>
+        <div class="main">
+            <h2>Log In Here:</h2>
 
-    <div class="main">
+            <form method="POST" action="/login">
+                <label name="email"><b>Email</b></label><br>
+                <input type="text" id="email" name="email" required><br>
 
-        <h3>Log in here:</h3>
-        <form method="POST" action="/login">
-            <label name="email"><b>Email</b></label><br>
-            <input type="text" id="email" name="email" required><br>
+                <label name="password"><b>Password</b></label><br>
+                <input type="text" id="password" name="password" required><br>
 
-            <label name="password"><b>Password</b></label><br>
-            <input type="text" id="password" name="password" required><br>
-
-            <button type="submit">Log In</button>
-            <p>Need an account? Sign up <a href="/signup">here</a></p>
-        </form>
-  
-
-
-    </div>
+                <button type="submit">Log In</button>
+                <p>Need an account? Sign up <a href="/signup">here</a></p>
+            </form>
+      </div>
     
     </div>
 </body>

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   
-  get '/account' do
-    #get "#{@user.name}/account" do
+  get '/account' do  #get "#{@user.name}/account" do
     @current_user = User.find_by_id(session[:user_id])
     if @current_user
       erb :'/users/account'
@@ -11,7 +10,6 @@ class UsersController < ApplicationController
   end
 
   patch '/account' do
-
     @user = User.find_by_id(session[:user_id])
     # @user.update(params[:name])
     @user.name = params[:name]
@@ -19,9 +17,5 @@ class UsersController < ApplicationController
     @user.save
     redirect to '/account'
   end
-
-
-
-
   
 end

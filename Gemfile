@@ -12,6 +12,7 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux' 
 gem 'sysrandom' #random generater for sessions id
+gem 'sinatra-flash'
 
 group :test do
 #group :development do

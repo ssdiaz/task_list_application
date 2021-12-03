@@ -27,20 +27,14 @@
             background-color: #f2f2f2;
         }
     </style>
-
-
 </head>
 
 <body id="tasks">
+    <h1>Welcome, <%= @current_user.name %>!</h1>
+    <p>Here are your tasks for today!</p>
+    <p><small><sup>*</sup> Mandatory Field</small></p>
 
-
-        <h1>Welcome, <%= @current_user.name %>!</h1>
-        <p>Here are your tasks for today!</p>
-
-        <p><small><sup>*</sup> Mandatory Field</small></p>
-
-
-        <div class="task_table">
+    <div class="task_table">
         <table>
             <tr>
                 <th>Status</th>
@@ -49,7 +43,7 @@
                 <th>Priority</th>
                 <th>Deadline</th>
                 <th>Action</th>
-               </tr>
+            </tr>
 
            <% @tasks.each do |task| %>
             <tr>
@@ -86,10 +80,10 @@
                 </form>
             </tr>     
         </table>
-        </div>
+    </div>
 
-        <h4>
-        <p>Total Tasks: <%=@current_user.tasks.count%></p>
-        <p>Tasks Completed: <%=@items_completed%></p>
-        </h4>
+    <h4>
+    <p>Total Tasks: <%=@current_user.tasks.count%></p>
+    <p>Tasks Completed: <%=@items_completed%></p>
+    </h4>
 </body>
