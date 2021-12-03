@@ -7,12 +7,16 @@
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
   }
-  
+
+  /* .container {
+    padding: 16px;
+  }
+   */
   /* Header/logo Title */
   .header {
     padding: 10px;
     text-align: center;
-    background: pink;     /* background: #1abc9c; */
+    background: pink;  /* background: #1abc9c; */
     color: white;
   }
   
@@ -26,22 +30,19 @@
     overflow: hidden;
     background-color: #333;
   }
-  
-  /* Style the navigation bar links */
+   /* Style the navigation bar links */
   .navbar a {
     float: right;
-    display: block;
+    /* display: inline; */
     color: white;
     text-align: center;
-    padding: 14px 20px;
+    padding: 14px 16px;
     text-decoration: none;
-  }
-  
+  }  
   /* Right-aligned link */
-  .navbar a.right {
+  /* .navbar a.right {
     float: right;
-  }
-  
+  }   */
   /* Change color on hover */
   .navbar a:hover {
     background-color: #ddd;
@@ -100,17 +101,26 @@
       width: 100%;
     }
   }
-    
-  /* for input layout */
- label{
-    display: block;
-    float: left;
-    width : 100px;    
+
+  input[type=text], input[type=password] {
+    width: 70%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
   }
 
-
-  .completed_task{
-    /* background: #888;
-    color: #fff; */
-    text-decoration: line-through;
+  /* buttons - login/signup */
+  button {
+    background-color: #1abc9c;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+  }
+  button:hover {
+    opacity: 0.8;
   }

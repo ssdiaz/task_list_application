@@ -19,6 +19,7 @@
         td {
             text-align: left;
             padding: 12px;
+            max-width: 150px;
         }
 
         tr:nth-child(odd) {
@@ -28,66 +29,69 @@
 </head>
 
 <body id="tasks">
-    <strong>Welcome, <%=@current_user.name%>!</strong>
-    <br>
-    (id: <%=@current_user.id%>)
-    <br>
-    <br>
-    Here are your tasks for today!
-    <br>
 
-    <table>
-        <tr>
-            <th>Status</th>
-            <th>Task<sup>*</sup></th>
-            <th>Description</th>
-            <th>Priority</th>
-            <th>Deadline</th>
-            <th>Action</th>
-        </tr>
-        <sup>*</sup> Mandatory Field
-        <br><br>
-        <%@tasks.each do |task|%>
-        <tr>
-            <%if task.status == "Complete"%>
-                <td><input type="checkbox" name="task[id]" id="task_status"  <%='checked' if task.status == "Complete"%> onclick="return false"></td>
-                <% else %>
-                <%# COMPLETE TASK %>
+
+
+        <h1>Welcome, <%= @current_user.name %>!</h1>
+        (id: <%= @current_user.id %>)
+        <br>
+        <br>
+        Here are your tasks for today!
+        <br>
+
+        <table>
+            <tr>
+                <th>Status</th>
+                <th>Task<sup>*</sup></th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Deadline</th>
+                <th>Action</th>
+            </tr>
+            <sup>*</sup> Mandatory Field
+            <br><br>
+            <% @tasks.each do |task| %>
+            <tr>
+                <% if task.status == "Complete" %>
+                    <td><input type="checkbox" name="task[id]" id="task_status"  <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
+                    <% else %>
+                    <%# COMPLETE TASK %>
+                    <form method="POST" action="/tasks/<%= task.id %>"> 
+                        <input id="hidden" type="hidden" name="_method" value="patch">
+                        <td><input type="checkbox" name="task[id]" id="task_status" onclick="this.form.submit()"></td>
+                    </form>
+                <% end %>
+
+                <td><label for="task[id]"><%= task.name %></label></td>
+                <td><label for="task[id]"><%= task.description %></label></td>
+                <td><label for="task[id]"><%= task.priority %></label></td>
+                <td><label for="task[id]"><%= task.deadline %></label></td>
+
+                <%# DELETE TASK %>
                 <form method="POST" action="/tasks/<%=task.id%>"> 
-                    <input id="hidden" type="hidden" name="_method" value="patch">
-                    <td><input type="checkbox" name="task[id]" id="task_status" onclick="this.form.submit()"></td>
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <td><input type="submit"  value="Delete"></td>
                 </form>
+            </tr>
             <%end%>
+            <tr> <%# NEW TASK %>
+                <form method="POST" action="/tasks/new">
+                    <td></td>
+                    <td><input type="text" name="task[name]"        id="task_name"></td>
+                    <td><input type="text" name="task[description]" id="task_description"></td>
+                    <td><input type="text" name="task[priority]"    id="task_priority"></td>
+                    <td><input type="text" name="task[deadline]"    id="task_deadline"></td>
+                    <td><input type="submit" value="Add Task"></td>
+                </form>
+            </tr>     
+        </table>
 
-            <td><label for="task[id]"><%=task.name%></label></td>
-            <td><label for="task[id]"><%=task.description%></label></td>
-            <td><label for="task[id]"><%=task.priority%></label></td>
-            <td><label for="task[id]"><%=task.deadline%></label></td>
+        <br>
+        No. of Tasks: <%=@current_user.tasks.count%>
+        <br><br>
+        Items completed today: <%=@items_completed%>
+        <br><br>
+        <a href="/logout">Log Out</a>
 
-            <%# DELETE TASK %>
-            <form method="POST" action="/tasks/<%=task.id%>"> 
-                <input id="hidden" type="hidden" name="_method" value="delete">
-                <td><input type="submit"  value="Delete"></td>
-            </form>
-        </tr>
-        <%end%>
-        <tr> <%# NEW TASK %>
-            <form method="POST" action="/tasks/new">
-                <td></td>
-                <td><input type="text" name="task[name]"        id="task_name"></td>
-                <td><input type="text" name="task[description]" id="task_description"></td>
-                <td><input type="text" name="task[priority]"    id="task_priority"></td>
-                <td><input type="text" name="task[deadline]"    id="task_deadline"></td>
-                <td><input type="submit" value="Add Task"></td>
-            </form>
-        </tr>     
-    </table>
-
-    <br>
-    No. of Tasks: <%=@current_user.tasks.count%>
-    <br><br>
-    Items completed today: <%=@items_completed%>
-    <br><br>
-    <a href="/logout">Log Out</a>
 
 </body>

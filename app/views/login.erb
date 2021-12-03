@@ -1,11 +1,17 @@
-<h3>Log in here:</h3>
-<br>
-<form method="POST" action="/login">
-    <label name="email">Email: </label>
-    <input type="text" id="email" name="email">
-    <br>
-    <label name="password">Password: </label>
-    <input type="text" id="password" name="password">
-    <br><br>
-    <input type="submit" value="Log In">
-</form>
+<body id="login">
+    <div class="main">
+        <h3>Log in here:</h3>
+        <br>
+        <form method="POST" action="/login">
+
+            <label name="email"><b>Email</b></label><br>
+            <input type="text" id="email" name="email" required><br>
+
+            <label name="password"><b>Password</b></label><br>
+            <input type="text" id="password" name="password" required><br>
+
+            <button type="submit">Log In</button>
+            
+        </form>
+    </div>
+</body>
