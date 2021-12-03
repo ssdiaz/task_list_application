@@ -63,10 +63,12 @@
                 <td><label for="task[id]"><%= task.deadline %></label></td>
 
                 <%# DELETE TASK %>
-                <form method="POST" action="/tasks/<%=task.id%>"> 
-                    <input id="hidden" type="hidden" name="_method" value="delete">
-                    <td><input type="submit"  value="Delete"></td>
-                </form>
+                <% if task.user == current_user %>
+                    <form method="POST" action="/tasks/<%=task.id%>"> 
+                        <input id="hidden" type="hidden" name="_method" value="delete">
+                        <td><input type="submit"  value="Delete"></td>
+                    </form>
+                <%end%>
             </tr>
            <%end%>
             <tr> <%# NEW TASK %>

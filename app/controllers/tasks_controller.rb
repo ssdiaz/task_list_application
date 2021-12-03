@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
     
     get '/tasks/index' do  #show all tasks page -- need to make for account only tho. session:id is not reading. its nil
+        redirect_if_not_logged_in
         @current_user = User.find_by_id(session[:user_id])
 
         if @current_user #is true
@@ -13,7 +14,8 @@ class TasksController < ApplicationController
     end
 
     post '/tasks/new' do #make a new task
-        if !params["task"]["name"].empty?
+        redirect_if_not_logged_in
+        if  !params["task"]["name"].empty? 
             @task = Task.new(params[:task])
             @task.status = "Open"
             @task.user_id = session[:user_id]
@@ -23,26 +25,30 @@ class TasksController < ApplicationController
     end
 
     patch '/tasks/:id' do #edit patch status -- need to do when ticked
-        @task = Task.find_by_id(params[:id])
-        @task.status = "Complete"
-        @task.save
+        redirect_if_not_logged_in
+        task = Task.find_by_id(params[:id])
+        if check_user(task)
+            task.status = "Complete"
+            task.save
+        end
         redirect '/tasks/index'
+
+        # redirect_if_not_logged_in
+        # @task = Task.find_by(id: params[:id])
+        # if check_user(@task)
+        #     @task.update(params[:task])
+        # end
+        # redirect '/tasks/index' #erb :'task/show'
     end
 
     delete '/tasks/:id' do #delete task
-        @task = Task.find_by_id(params[:id])
-        @task.delete
+        redirect_if_not_logged_in
+        task = Task.find_by_id(params[:id])
+        if check_user(task)
+            task.delete
+        end
+
         redirect '/tasks/index'
     end
-
-    # helpers do
-	# 	def logged_in?
-	# 		!!session[:user_id]
-	# 	end
-
-	# 	def current_user
-	# 		User.find(session[:user_id])
-	# 	end
-	# end
 
 end
