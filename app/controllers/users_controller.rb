@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  
+
   get '/signup' do
     if current_user #if current user is logged in, redirect to index if they try to access signup.login
       redirect '/tasks/index'
     end
-    erb :'/signup'
+    erb :'/users/signup'
   end
 
   post '/signup' do
@@ -20,34 +20,36 @@ class UsersController < ApplicationController
 
   get '/login' do 
     if current_user #if current user is logged in, redirect to index if they try to access signup.login
-      redirect '/tasks/index'
+      redirect to '/tasks/index'
     end
-    erb :'login'
+    erb :'/users/login'
   end
 
   post '/login' do
-     user = User.find_by(email: params[:email])
-      if user != nil && user.authenticate(params[:password])
-        session[:user_id] = user.id
-        redirect to '/tasks/index'
-      end 
+    user = User.find_by(email: params[:email])
+    if user != nil && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect to '/tasks/index'
+    end 
       flash[:message] = "Invalid credentials. Please try again."
-      redirect '/login'
+      redirect to '/login'
   end
 
-  get '/account' do  #get "#{@user.name}/account" do
+  get '/account' do  
     @current_user = User.find_by_id(session[:user_id])
     if @current_user
       erb :'/users/account'
     else
-      erb :'/error'
+      session.clear
+      flash[:message] = "Please login to view your account."
+      erb :'/users/login'
     end
   end
 
   patch '/account' do
     if current_user
       current_user.update(params[:user])
-      flash[:message] = "Success. Information saved." unless !current_user.save
+      flash[:message] = "Success. Profile saved." unless !current_user.save
     end
     redirect to '/account'
   end

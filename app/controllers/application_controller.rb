@@ -26,8 +26,8 @@ class ApplicationController < Sinatra::Base
 
     def redirect_if_not_logged_in #redirect view if user is NOT logged in. Use in like every controller method. 
       if !current_user 
-        #flash[:message] = "You must login to see this page." #-- NEED TO ADD INTO THE VIEWS THO...
-        redirect '/login'
+        flash[:message] = "You must login to see this page."
+        redirect '/welcome'
       end
     end
 
@@ -37,6 +37,10 @@ class ApplicationController < Sinatra::Base
 
     def logged_in?#(session)  #returns true if userid is in the session hash
       !!session[:user_id]
+    end
+
+    def user_tasks
+      current_user.tasks
     end
   end
 

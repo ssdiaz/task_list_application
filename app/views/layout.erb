@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
    <link rel="stylesheet" href="/stylesheets/main3.css" />  
 
-
-
-
-
-
     <div class="header">
         <h1>Task App</h1>
         The App for your Tasks
     </div>
 
     <div class="navbar">
-     <% if !logged_in? %>       <%# <% if !session[:user_id] %> 
+     <% if !logged_in? %>
         <a href="/">Home</a>
         <a href="/signup">Sign Up</a>
       <%end%>
 
-      <% if logged_in? %>       <%# <% if session[:user_id] %> 
+      <% if logged_in? %>
         <div class="navbar_logged_in">
           <a href="/logout">Log Out</a>
           <a href="/account">Account</a>
-          <a href="/tasks/index">Tasks</a>
+          <a href="/tasks">Tasks</a>
         </div>
       <%end%>
     </div>
@@ -32,16 +27,10 @@
 
   <body>
     <div class="main">
-        <%# loads the view content %>
-        <%= yield %>
+        <%= yield %>         <%# loads the view content %>
     </div>
 
     <div class="footer">
-         <% if !logged_in? %>       <%# <% if !session[:user_id] %>
-        <a href="/">Home</a>
-        <a href="/signup">Sign Up</a>
-        <br>
-      <% end %>
       <small>&copy; 2021 <strong>Task List Application</strong></small>
     </div>
   </body>

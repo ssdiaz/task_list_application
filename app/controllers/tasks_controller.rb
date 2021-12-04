@@ -1,15 +1,12 @@
 class TasksController < ApplicationController
-    
-    get '/tasks/index' do  #show all tasks page -- need to make for account only tho. session:id is not reading. its nil
-       # redirect_if_not_logged_in
-        @current_user = User.find_by_id(session[:user_id])
 
-        if @current_user #is true
-            @tasks = Task.select {|task| task.user_id == @current_user.id}
+    get '/tasks' do  #show all tasks page
+        redirect_if_not_logged_in
+        @current_user = User.find_by_id(session[:user_id])
+        if @current_user
+            @tasks = user_tasks.select {|task| task.user_id == @current_user.id}
             @items_completed = @tasks.count {|task| task.status == "Complete"}
             erb :'/tasks/index'
-        else
-            erb :error
         end
     end
 
@@ -24,30 +21,30 @@ class TasksController < ApplicationController
                 flash[:message] = "Task Added."
             end
         end
-        redirect '/tasks/index'
+        redirect to '/tasks'
     end
 
     patch '/tasks/:id' do #edit patch status -- need to do when ticked
         redirect_if_not_logged_in
         if current_user
-            task = current_user.tasks.find_by_id(params[:id])
+            task = user_tasks.find_by_id(params[:id])
             if check_user(task)
                 task.status = "Complete"
                 task.save
                 flash[:message] = "Task Complete. Yay!"
             end
         end
-        redirect '/tasks/index'
+        redirect to '/tasks'
     end
 
     delete '/tasks/:id' do #delete task
         redirect_if_not_logged_in
-        task = current_user.tasks.find_by_id(params[:id])
+        task = user_tasks.find_by_id(params[:id])
         if check_user(task)
             task.delete
             flash[:message] = "Task Deleted."
         end
-        redirect '/tasks/index'
+        redirect to '/tasks'
     end
 
 end
