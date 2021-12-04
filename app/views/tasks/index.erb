@@ -15,11 +15,12 @@
             padding: 12px;
             background-color: grey;
             color: #333;
+            /* line-height: 30px; */
         }
 
         td {
             text-align: left;
-            padding: 12px;
+            padding: 10px;
             max-width: 150px;
         }
 
@@ -30,9 +31,12 @@
 </head>
 
 <body id="tasks">
+
+    <%= flash[:message] %>
+
     <h1>Welcome, <%= @current_user.name %>!</h1>
     <p>Here are your tasks for today!</p>
-    <p><small><sup>*</sup> Mandatory Field</small></p>
+    <small><sup>*</sup> Mandatory Field</small>
 
     <div class="task_table">
         <table>
@@ -48,19 +52,23 @@
            <% @tasks.each do |task| %>
             <tr>
                 <% if task.status == "Complete" %>
-                    <td><input type="checkbox" name="task[id]" id="task_status"  <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
+                    <td><input type="checkbox" name="task[status]" id="task_status"  <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
                     <% else %>
+
                     <%# COMPLETE TASK %>
-                    <form method="POST" action="/tasks/<%= task.id %>"> 
-                        <input id="hidden" type="hidden" name="_method" value="patch">
-                        <td><input type="checkbox" name="task[id]" id="task_status" onclick="this.form.submit()"></td>
-                    </form>
+                    <% if task.user == current_user %>
+                        <form method="POST" action="/tasks/<%= task.id %>"> 
+                            <input id="hidden" type="hidden" name="_method" value="patch">
+                            <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
+                        </form>
+                    <%end%>
+
                 <% end %>
 
-                <td><label for="task[id]"><%= task.name %></label></td>
-                <td><label for="task[id]"><%= task.description %></label></td>
-                <td><label for="task[id]"><%= task.priority %></label></td>
-                <td><label for="task[id]"><%= task.deadline %></label></td>
+                <td><label for="task[name]"><%= task.name %></label></td>
+                <td><label for="task[description]"><%= task.description %></label></td>
+                <td><label for="task[priority]"><%= task.priority %></label></td>
+                <td><label for="task[deadline]"><%= task.deadline %></label></td>
 
                 <%# DELETE TASK %>
                 <% if task.user == current_user %>
@@ -69,18 +77,23 @@
                         <td><input type="submit"  value="Delete"></td>
                     </form>
                 <%end%>
+
             </tr>
            <%end%>
+
             <tr> <%# NEW TASK %>
-                <form method="POST" action="/tasks/new">
-                    <td></td>
-                    <td><input type="text" name="task[name]"        id="task_name"></td>
-                    <td><input type="text" name="task[description]" id="task_description"></td>
-                    <td><input type="text" name="task[priority]"    id="task_priority"></td>
-                    <td><input type="text" name="task[deadline]"    id="task_deadline"></td>
-                    <td><button type="submit">Add Task</button></td>
-                </form>
+                <% if current_user %>
+                    <form method="POST" action="/tasks/new">
+                        <td></td>
+                        <td><input type="text" name="task[name]"        id="task_name"></td>
+                        <td><input type="text" name="task[description]" id="task_description"></td>
+                        <td><input type="text" name="task[priority]"    id="task_priority"></td>
+                        <td><input type="text" name="task[deadline]"    id="task_deadline"></td>
+                        <td><button type="submit">Add Task</button></td>
+                    </form>
+                <%end%>
             </tr>     
+
         </table>
     </div>
 

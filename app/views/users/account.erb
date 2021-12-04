@@ -1,5 +1,8 @@
   <body id="account">
         <div class="main">
+        
+            <%= flash[:message] %>
+
             <h2>Edit your information here:</h2>
 
             <form method="POST" action="/account">
@@ -7,14 +10,17 @@
                 <input id="hidden" type="hidden" name="_method" value="patch">
 
                 <label name="name"><b>Name</b></label><br>
-                <input type="text" id="name" name="name" value="<%= @current_user.name %>">
+                <input type="text" id="name" name="user[name]" value="<%= @current_user.name %>">
                 <br>
 
                 <label name="email"><b>Email</b></label><br>
-                <input type="text" id="email" name="email" value="<%= @current_user.email %>">
+                <input type="text" id="email" name="user[email]" value="<%= @current_user.email %>">
                 <br>
 
-                <button type="submit">Save Account</button>                    
+  
+                <button type="submit">Save Account</button>  
+
+
             </form>
             <p><a href="/tasks/index">View Tasks</a></p>
             <p><a href="/logout">Log Out</a></p>

@@ -1,7 +1,7 @@
 <body id="signup">
     <div class="main">
 
-         <% flash[:message] && flash[:message].each do |message| %> <%#check if flash has a message key and if yes then iterate over it%>
+        <% flash[:message] && flash[:message].each do |message| %> <%#check if flash has a message key and if yes then iterate over it%>
             <%= message %>
             <br>
         <% end %>
@@ -10,18 +10,20 @@
 
         <form method="POST" action="/signup">
 
-                <label name="name"><b>Name</b></label><br>
-                <input type="text" id="name" name="name" required><br>
+            <label name="name"><b>Name</b></label><br>
+            <input type="text" id="name" name="user[name]" required><br>
 
-                <label name="email"><b>Email</b></label><br>
-                <input type="text" id="email" name="email" required><br>
+            <label name="email"><b>Email</b></label><br>
+            <input type="text" id="email" name="user[email]" required><br>
 
-                <label name="password"><b>Password</b></label><br>
-                <input type="text" id="password" name="password" required><br>
+            <label name="password"><b>Password</b></label><br>
+            <input type="password" id="password" name="user[password]" required><br>
 
-                <button type="submit">Create Account</button>
+            <button type="submit">Create Account</button>
                 
         </form>
+
         <p><a href="/">Return to Log In</a></p>
+
     </div>
 </body>

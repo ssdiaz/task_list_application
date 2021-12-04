@@ -2,7 +2,12 @@
   <head>
     <title>Task App</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/stylesheets/main2.css" /> 
+   <link rel="stylesheet" href="/stylesheets/main3.css" />  
+
+
+
+
+
 
     <div class="header">
         <h1>Task App</h1>
@@ -32,11 +37,11 @@
     </div>
 
     <div class="footer">
-         <% if !logged_in? %>       <%# <% if !session[:user_id] %> 
+         <% if !logged_in? %>       <%# <% if !session[:user_id] %>
         <a href="/">Home</a>
         <a href="/signup">Sign Up</a>
         <br>
-      <%end%>
+      <% end %>
       <small>&copy; 2021 <strong>Task List Application</strong></small>
     </div>
   </body>

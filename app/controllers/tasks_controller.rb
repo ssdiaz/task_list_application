@@ -15,39 +15,38 @@ class TasksController < ApplicationController
 
     post '/tasks/new' do #make a new task
         redirect_if_not_logged_in
-        if  !params["task"]["name"].empty? 
-            @task = Task.new(params[:task])
-            @task.status = "Open"
-            @task.user_id = session[:user_id]
-            @task.save
+        if current_user
+            if  !params[:task][:name].empty? #validating if name is not empty
+                task = Task.new(params[:task])
+                task.status = "Open"
+                task.user_id = session[:user_id]
+                task.save
+                flash[:message] = "Task Added."
+            end
         end
         redirect '/tasks/index'
     end
 
     patch '/tasks/:id' do #edit patch status -- need to do when ticked
         redirect_if_not_logged_in
-        task = Task.find_by_id(params[:id])
-        if check_user(task)
-            task.status = "Complete"
-            task.save
+        if current_user
+            task = current_user.tasks.find_by_id(params[:id])
+            if check_user(task)
+                task.status = "Complete"
+                task.save
+                flash[:message] = "Task Complete. Yay!"
+            end
         end
         redirect '/tasks/index'
-
-        # redirect_if_not_logged_in
-        # @task = Task.find_by(id: params[:id])
-        # if check_user(@task)
-        #     @task.update(params[:task])
-        # end
-        # redirect '/tasks/index' #erb :'task/show'
     end
 
     delete '/tasks/:id' do #delete task
         redirect_if_not_logged_in
-        task = Task.find_by_id(params[:id])
+        task = current_user.tasks.find_by_id(params[:id])
         if check_user(task)
             task.delete
+            flash[:message] = "Task Deleted."
         end
-
         redirect '/tasks/index'
     end
 
