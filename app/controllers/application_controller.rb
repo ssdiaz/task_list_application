@@ -44,10 +44,6 @@ class ApplicationController < Sinatra::Base
       current_user.tasks
     end
 
-
-
-
-
   end
 
 end
