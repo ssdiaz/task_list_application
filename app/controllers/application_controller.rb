@@ -13,6 +13,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    if current_user #if current user is logged in, redirect to index if they try to access signup.login
+      redirect to '/tasks'
+    end
     erb :'welcome'
   end
 

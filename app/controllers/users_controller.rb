@@ -59,4 +59,9 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
+
+  get '/community' do
+    erb :'/users/index'
+  end
+
 end
