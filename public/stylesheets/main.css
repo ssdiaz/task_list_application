@@ -177,3 +177,16 @@
   tr:nth-child(odd) {
       background-color: #f2f2f2;
   }
+
+  table.community {
+    text-align: center;
+    border-spacing: 0;
+    width: 50%;
+    border: 2px solid black;
+  }
+  table.community th{
+    text-align: center;
+    padding: 12px;
+    background-color: #1abc9c;
+    color: #333;
+}

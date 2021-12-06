@@ -1,26 +1,39 @@
 <body id="community">
-    <h3>Check out how the users are doing today:</h3>
+    <h3>Check out how the users are doing:</h3>
 
-    <%if logged_in?%>
-        <ul>
+    <%if logged_in? && current_user%>
+        <table class="community">
+            <tr>
+                <th>USER</th>
+                <th>TOTAL TASKS</th>
+                <th>COMPLETED</th>
+            </tr>
+
             <% @users.each do |user| %>
-                    <% total_tasks = user.tasks.count %> 
-                    <% completed_tasks = user.tasks.count {|task| task.status == "Complete"}%>
-                <li>
-                    <% if total_tasks == 1 && completed_tasks == 0 %>
-                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> task today.
-                    <% elsif total_tasks > 1 && completed_tasks == 0 %>
-                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today.
-                    <%elsif completed_tasks == 1 %> 
-                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today, and completed <%= completed_tasks %> task!
-                    <% elsif completed_tasks > 1 %> 
-                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today, and completed <%= completed_tasks %> tasks!
-                    <% elsif total_tasks == 0 %>
-                        <%= user.name %> does not have any tasks.
-                    <% end %>
-                </li>
-            <% end %>
-        </ul>
+                <% total_tasks = user.tasks.count %> 
+                <% completed_tasks = user.tasks.count {|task| task.status == "Complete"}%> 
+                <tr>
+                    <td>
+                        <% if total_tasks > 0 %>
+                            <a href="/<%=user.id%>/tasks"><%= user.name %></a>
+                        <% else %>
+                            <%= user.name %>
+                        <% end %>
+                    </td>
+
+                    <td><%= total_tasks %></td>
+
+                    <td>
+                        <% if completed_tasks > 0 %>
+                            <%= completed_tasks %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>       
+        </table>
+
+        <p><a href="/tasks">Back to Your Tasks</a></p>
+
     <% end %>
 
 </body>
