@@ -1,28 +1,29 @@
 <!DOCTYPE html>
   <head>
     <title>Task App</title>
+        <link rel="stylesheet" href="./stylesheets/main.css" type="text/css" />  
     <meta charset="UTF-8">
-   <link rel="stylesheet" href="/stylesheets/main3.css" />  
 
-    <div class="header">
-        <h1>Task App</h1>
-        The App for your Tasks
-    </div>
 
-    <div class="navbar">
-     <% if !logged_in? %>
-        <a href="/">Home</a>
-        <a href="/signup">Sign Up</a>
-      <%end%>
+      <div class="header">
+          <h1>Task App</h1>
+          The App for your Tasks
+      </div>
 
-      <% if logged_in? %>
-        <div class="navbar_logged_in">
-          <a href="/logout">Log Out</a>
-          <a href="/account">Account</a>
-          <a href="/tasks">Tasks</a>
-        </div>
-      <%end%>
-    </div>
+      <div class="navbar">
+      <% if !logged_in? %>
+          <a href="/">Home</a>
+          <a href="/signup">Sign Up</a>
+        <%end%>
+
+        <% if logged_in? %>
+          <div class="navbar_logged_in">
+            <a href="/logout">Log Out</a>
+            <a href="/account">Account</a>
+            <a href="/tasks">Tasks</a>
+          </div>
+        <%end%>
+      </div>
   </head>
 
   <body>

@@ -9,9 +9,7 @@ class ApplicationController < Sinatra::Base
     #set :public_folder, 'public'
     set :views, Proc.new { File.join(root, "../views/") }     #set :views, 'app/views'
     enable :sessions
-    set :session_secret, "secret" #for shotgun really.- this is so sinatra isn't sending a set cookie header with every click
-    #set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
-    #set :session_secret, SecureRandom.hex(64)
+    set :session_secret, "7a93f0c56cbcadaffd4764a381b6074924e55a0add0b5c4b553e926a7af30fb7bcadca1ed9a7a447d7df753cca86b07ee28b9775ecdb4f68c17e9cd514d2b999" #puts SecureRandom.hex(64) => 7a93f0c56cbcadaffd4764a381b6074924e55a0add0b5c4b553e926a7af30fb7bcadca1ed9a7a447d7df753cca86b07ee28b9775ecdb4f68c17e9cd514d2b999
   end
 
   get '/' do
@@ -27,7 +25,7 @@ class ApplicationController < Sinatra::Base
     def redirect_if_not_logged_in #redirect view if user is NOT logged in. Use in like every controller method. 
       if !current_user 
         flash[:message] = "You must login to see this page."
-        redirect '/welcome'
+        redirect '/'
       end
     end
 

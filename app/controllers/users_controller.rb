@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if current_user #if current user is logged in, redirect to index if they try to access signup.login
-      redirect '/tasks/index'
+      redirect '/tasks'
     end
     erb :'/users/signup'
   end
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     user = User.create(params[:user])
     if user.valid?
       session[:user_id] = user.id
-      redirect to '/tasks/index'
+      redirect to '/tasks'
     else
       flash[:message] = user.errors.full_messages
       redirect to '/signup'
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   get '/login' do 
     if current_user #if current user is logged in, redirect to index if they try to access signup.login
-      redirect to '/tasks/index'
+      redirect to '/tasks'
     end
     erb :'/users/login'
   end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     user = User.find_by(email: params[:email])
     if user != nil && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect to '/tasks/index'
+      redirect to '/tasks'
     end 
       flash[:message] = "Invalid credentials. Please try again."
       redirect to '/login'
