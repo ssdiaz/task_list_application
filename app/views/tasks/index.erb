@@ -1,35 +1,34 @@
 <head>
     <style>
-        /* table {
-            border: 1px solid black;
+        table {
             text-align: center;
             border-spacing: 0;
             width: 100%;
             border: 2px solid black;
-        } */
+        }
         /* table headings (titles) */
         th {
-            text-align: left;
+            text-align: center;
             padding: 12px;
             background-color: grey;
             color: #333;
         }
         /* table data cell */
         td {
-            text-align: left;
+            text-align: center;
             padding: 10px;
+            width: 100px;
             max-width: 150px;
         }
         /* table rows */
-        table tr:nth-child(odd) td {
-        /* tr:nth-child(odd) { */
+        tr:nth-child(odd) {
             background-color: #f2f2f2;
         }
     </style>
 </head>
 
 <body id="tasks">
-    <%= flash[:message] %>
+    <div class="message"><%= flash[:message] %></div>
 
     <% if @user == current_user %>
         <h1>Welcome, <%= current_user.name %>!</h1>
@@ -59,37 +58,33 @@
                 <tr>
                     <% if task.status == "Complete" %>
                         <td><input type="checkbox" name="task[status]" id="task_status" <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
-                        <%# COMPLETE TASK %>
-                       <% elsif check_user_for(task) %>
+                    <% elsif @user != current_user %>
+                        <td><label for="task[status]"><%= task.status %></label></td>
+                    <% elsif check_user_for(task) %>
+                            <%# COMPLETE TASK %>
                             <form method="POST" action="/tasks/<%= task.id %>"> 
                                 <input id="hidden" type="hidden" name="_method" value="patch">
                                 <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
                             </form>
                     <% end %>
-
-                    <% if @user != current_user %>
-                        <td><label for="task[status]"><%= task.status %></label></td>
-                    <% end %>
+ 
                     <td><label for="task[name]"><%= task.name %></label></td>
                     <td><label for="task[description]"><%= task.description %></label></td>
                     <td><label for="task[priority]"><%= task.priority %></label></td>
                     <td><label for="task[deadline]"><%= task.deadline %></label></td>
-                    <%# DELETE TASK %>
                         <% if check_user_for(task) %>
-                            <td>
-                                <form method="POST" action="/tasks/<%=task.id%>"> 
-                                    <input id="hidden" type="hidden" name="_method" value="delete">
-                                    <input type="submit"  value="Delete">
-                                </form>
-                            </td>
+                            <%# DELETE TASK %>
+                            <form method="POST" action="/tasks/<%=task.id%>"> 
+                                <input id="hidden" type="hidden" name="_method" value="delete">
+                                <td><input type="submit"  value="Delete"></td>
+                            </form>
                         <%end%>
                 </tr>
            <%end%>
 
-
-
             <% if @user == current_user %>
-                <tr> <%# NEW TASK %>
+                <tr> 
+                    <%# NEW TASK %>
                     <form method="POST" action="/tasks/new">
                         <td></td>
                         <td><input type="text" name="task[name]"        id="task_name"></td>

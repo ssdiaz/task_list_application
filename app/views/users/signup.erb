@@ -1,10 +1,12 @@
 <body id="signup">
     <div class="main">
 
-        <% flash[:message] && flash[:message].each do |message| %> <%#check if flash has a message key and if yes then iterate over it%>
-            <%= message %>
-            <br>
-        <% end %>
+        <div class="message">
+            <% flash[:message] && flash[:message].each do |message| %> <%#check if flash has a message key and if yes then iterate over it%>
+                <%= message %>
+                <br>
+            <% end %>
+        </div>
 
         <h2>Sign Up Here:</h2>
 
