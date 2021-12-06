@@ -1,47 +1,19 @@
-<head>
-    <style>
-        table {
-            text-align: center;
-            border-spacing: 0;
-            width: 100%;
-            border: 2px solid black;
-        }
-        /* table headings (titles) */
-        th {
-            text-align: center;
-            padding: 12px;
-            background-color: grey;
-            color: #333;
-        }
-        /* table data cell */
-        td {
-            text-align: center;
-            padding: 10px;
-            width: 100px;
-            max-width: 150px;
-        }
-        /* table rows */
-        tr:nth-child(odd) {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-
 <body id="tasks">
     <div class="message"><%= flash[:message] %></div>
-
+    
+    <%# displays greeting %>
     <% if @user == current_user %>
         <h1>Welcome, <%= current_user.name %>!</h1>
-        <p>Here are your tasks for today!</p>
+        <p>Here are your tasks.</p>
         <small><sup>*</sup> Mandatory Field</small>
-        <% else %>
-        <h1>Tasks for: <%= @user.name %>!</h1>
+    <% else %>
+        <h1>Tasks for: <%= @user.name %></h1>
     <% end %>
 
-
-    <%if @user.tasks.count == 0 && @user!=current_user %>
+    <%# displays tasks table %>
+    <%if @user!=current_user && @user.tasks.count == 0 %>
         <p>This user does not have any tasks.</p>
-    <% elsif @user == current_user || @user.tasks.count > 0   %>
+    <% elsif @user == current_user || @user.tasks.count > 0 %>
         <table>
             <tr>
                 <th>Status</th>
@@ -67,24 +39,23 @@
                                 <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
                             </form>
                     <% end %>
- 
                     <td><label for="task[name]"><%= task.name %></label></td>
                     <td><label for="task[description]"><%= task.description %></label></td>
                     <td><label for="task[priority]"><%= task.priority %></label></td>
                     <td><label for="task[deadline]"><%= task.deadline %></label></td>
-                        <% if check_user_for(task) %>
-                            <%# DELETE TASK %>
-                            <form method="POST" action="/tasks/<%=task.id%>"> 
-                                <input id="hidden" type="hidden" name="_method" value="delete">
-                                <td><input type="submit"  value="Delete"></td>
-                            </form>
-                        <%end%>
+                    <% if check_user_for(task) %>
+                        <%# DELETE TASK %>
+                        <form method="POST" action="/tasks/<%=task.id%>"> 
+                            <input id="hidden" type="hidden" name="_method" value="delete">
+                            <td><input type="submit"  value="Delete"></td>
+                        </form>
+                    <%end%>
                 </tr>
            <%end%>
-
+    
+            <%# NEW TASK --- for current users only%>
             <% if @user == current_user %>
                 <tr> 
-                    <%# NEW TASK %>
                     <form method="POST" action="/tasks/new">
                         <td></td>
                         <td><input type="text" name="task[name]"        id="task_name"></td>
@@ -94,16 +65,20 @@
                         <td><button type="submit">Add Task</button></td>
                     </form>
                 </tr>   
-            <%end%>  
+            <%end%> 
 
         </table>
+    <% end %>
 
-        <%if @user.tasks.count != 0 %>
-            <h4>
-                <p>Total Tasks: <%=@user.tasks.count%></p>
-                <p>Tasks Completed: <%=@items_completed%></p>
-            </h4>
-        <% end %>
+    <%if @user.tasks.count != 0 %>
+        <h4>
+            <p>Total Tasks: <%=@user.tasks.count%></p>
+            <p>Tasks Completed: <%=@items_completed%></p>
+        </h4>
+    <% end %>
+
+    <% if @user != current_user %>
+        <p><a href="/community">Back to Community List</a></p>
     <% end %>
 
 </body>

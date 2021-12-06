@@ -152,4 +152,28 @@
     font-style: italic;
   }
 
-  
+  /* table properties for the tasks table */
+  table {
+    text-align: center;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid black;
+  }
+  /* table headings (titles) */
+  th {
+      text-align: center;
+      padding: 12px;
+      background-color: grey;
+      color: #333;
+  }
+  /* table data cell */
+  td {
+      text-align: center;
+      padding: 10px;
+      width: 100px;
+      max-width: 150px;
+  }
+  /* table rows */
+  tr:nth-child(odd) {
+      background-color: #f2f2f2;
+  }
