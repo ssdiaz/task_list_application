@@ -1,12 +1,12 @@
 <head>
     <style>
-        table {
+        /* table {
             border: 1px solid black;
             text-align: center;
             border-spacing: 0;
             width: 100%;
             border: 2px solid black;
-        }
+        } */
         /* table headings (titles) */
         th {
             text-align: left;
@@ -29,7 +29,6 @@
 </head>
 
 <body id="tasks">
-
     <%= flash[:message] %>
 
     <% if @user == current_user %>
@@ -41,8 +40,9 @@
     <% end %>
 
 
-    <%if @user.tasks.count != 0 %>
-
+    <%if @user.tasks.count == 0 && @user!=current_user %>
+        <p>This user does not have any tasks.</p>
+    <% elsif @user == current_user || @user.tasks.count > 0   %>
         <table>
             <tr>
                 <th>Status</th>
@@ -58,17 +58,18 @@
            <% @tasks.each do |task| %>
                 <tr>
                     <% if task.status == "Complete" %>
-                        <td><input type="checkbox" name="task[status]" id="task_status"  <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
-                    <% else %>
+                        <td><input type="checkbox" name="task[status]" id="task_status" <%= 'checked' if task.status == "Complete" %> onclick="return false"></td>
                         <%# COMPLETE TASK %>
-                        <% if check_user_for(task) %>
+                       <% elsif check_user_for(task) %>
                             <form method="POST" action="/tasks/<%= task.id %>"> 
                                 <input id="hidden" type="hidden" name="_method" value="patch">
                                 <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
                             </form>
-                        <%end%>
                     <% end %>
 
+                    <% if @user != current_user %>
+                        <td><label for="task[status]"><%= task.status %></label></td>
+                    <% end %>
                     <td><label for="task[name]"><%= task.name %></label></td>
                     <td><label for="task[description]"><%= task.description %></label></td>
                     <td><label for="task[priority]"><%= task.priority %></label></td>
@@ -85,6 +86,8 @@
                 </tr>
            <%end%>
 
+
+
             <% if @user == current_user %>
                 <tr> <%# NEW TASK %>
                     <form method="POST" action="/tasks/new">
@@ -100,12 +103,12 @@
 
         </table>
 
-        <h4>
-            <p>Total Tasks: <%=@user.tasks.count%></p>
-            <p>Tasks Completed: <%=@items_completed%></p>
-        </h4>
-
-        <% else %>
-            <p>This user does not have any tasks.</p>
+        <%if @user.tasks.count != 0 %>
+            <h4>
+                <p>Total Tasks: <%=@user.tasks.count%></p>
+                <p>Tasks Completed: <%=@items_completed%></p>
+            </h4>
+        <% end %>
     <% end %>
+
 </body>

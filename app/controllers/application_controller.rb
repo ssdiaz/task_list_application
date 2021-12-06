@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
   #invoking helpers method from Sinatra::Base    #and have access to session has w/o needing to pass in as an argument in this controller (that all others inherit from)
   helpers do
     def current_user #returns current user (obj) or nil, when user is logged in
-      User.find_by_id(session[:user_id]) #OR User.find_by(id: session[:id])   #find_by will return nil or the user, find will throw an error
+      User.find_by_id(session[:user_id])
     end
 
     def redirect_if_not_logged_in #redirect view if user is NOT logged in. Use in like every controller method. 
@@ -43,6 +43,11 @@ class ApplicationController < Sinatra::Base
     def user_tasks
       current_user.tasks
     end
+
+
+
+
+
   end
 
 end

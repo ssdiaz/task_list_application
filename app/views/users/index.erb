@@ -4,21 +4,20 @@
     <%if logged_in?%>
         <ul>
             <% @users.each do |user| %>
+                    <% total_tasks = user.tasks.count %> 
+                    <% completed_tasks = user.tasks.count {|task| task.status == "Complete"}%>
                 <li>
-
-            <%# total_tasks
-            completed_tasks 
-            user.tasks.count %>
-
-                <%if user.tasks.count {|task| task.status == "Complete"} == 1 %> 
-                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today, and completed <%= user.tasks.count {|task| task.status == "Complete"} %> task!
-                <% elsif user.tasks.count {|task| task.status == "Complete"} > 1 %> 
-                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today, and completed <%= user.tasks.count {|task| task.status == "Complete"} %> tasks!
-                <% elsif user.tasks.count >0 && user.tasks.count {|task| task.status == "Complete"} == 0 %>
-                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today.
-                <% elsif user.tasks.count == 0 %>
-                    <%= user.name %> does not have any tasks.
-                <% end %>
+                    <% if total_tasks == 1 && completed_tasks == 0 %>
+                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> task today.
+                    <% elsif total_tasks > 1 && completed_tasks == 0 %>
+                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today.
+                    <%elsif completed_tasks == 1 %> 
+                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today, and completed <%= completed_tasks %> task!
+                    <% elsif completed_tasks > 1 %> 
+                        <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= total_tasks %> tasks today, and completed <%= completed_tasks %> tasks!
+                    <% elsif total_tasks == 0 %>
+                        <%= user.name %> does not have any tasks.
+                    <% end %>
                 </li>
             <% end %>
         </ul>

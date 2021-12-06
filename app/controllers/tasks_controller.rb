@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-    get '/tasks' do  #show all tasks page
+    get '/tasks' do  #all tasks page - for current user
         redirect_if_not_logged_in
         @user = current_user
         if current_user
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
         redirect to '/tasks'
     end
 
-    get '/:user_id/tasks' do  #show all tasks page
+    get '/:user_id/tasks' do  #all tasks page - for selected user
         redirect_if_not_logged_in
         #binding.pry
         @user = User.find_by_id(params[:user_id])
