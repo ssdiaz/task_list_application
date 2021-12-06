@@ -1,1 +1,27 @@
-communitiy!
+<body id="community">
+    Here are what all the users are up to today. 
+
+    <%if logged_in?%>
+        <ul>
+            <% @users.each do |user| %>
+                <li>
+
+            <%# total_tasks
+            completed_tasks 
+            user.tasks.count %>
+
+                <%if user.tasks.count {|task| task.status == "Complete"} == 1 %> 
+                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today, and completed <%= user.tasks.count {|task| task.status == "Complete"} %> task!
+                <% elsif user.tasks.count {|task| task.status == "Complete"} > 1 %> 
+                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today, and completed <%= user.tasks.count {|task| task.status == "Complete"} %> tasks!
+                <% elsif user.tasks.count >0 && user.tasks.count {|task| task.status == "Complete"} == 0 %>
+                    <a href="/<%=user.id%>/tasks"><%= user.name %></a> has <%= user.tasks.count %> tasks today.
+                <% elsif user.tasks.count == 0 %>
+                    <%= user.name %> does not have any tasks.
+                <% end %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+
+</body>

@@ -2,9 +2,9 @@ class TasksController < ApplicationController
 
     get '/tasks' do  #show all tasks page
         redirect_if_not_logged_in
-        @current_user = User.find_by_id(session[:user_id])
-        if @current_user
-            @tasks = user_tasks.select {|task| task.user_id == @current_user.id}
+        @user = current_user
+        if current_user
+            @tasks = user_tasks.select {|task| task.user_id == current_user.id}
             @items_completed = @tasks.count {|task| task.status == "Complete"}
             erb :'/tasks/index'
         end
@@ -45,6 +45,19 @@ class TasksController < ApplicationController
             flash[:message] = "Task Deleted."
         end
         redirect to '/tasks'
+    end
+
+    get '/:user_id/tasks' do  #show all tasks page
+        redirect_if_not_logged_in
+        #binding.pry
+        @user = User.find_by_id(params[:user_id])
+
+        if current_user && logged_in?
+            @tasks = @user.tasks.select {|task| task.user_id == @user.id}
+            @items_completed = @tasks.count {|task| task.status == "Complete"}
+            erb :'/tasks/index'
+        end
+
     end
 
 end

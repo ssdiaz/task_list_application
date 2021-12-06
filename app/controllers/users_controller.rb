@@ -54,14 +54,17 @@ class UsersController < ApplicationController
     redirect to '/account'
   end
 
+  get '/community' do
+    redirect_if_not_logged_in
+    if current_user && logged_in?
+      @users = User.all
+    end
+    erb :'/users/index'
+  end
+
   get '/logout' do
     session.clear
     redirect '/'
-  end
-
-
-  get '/community' do
-    erb :'/users/index'
   end
 
 end

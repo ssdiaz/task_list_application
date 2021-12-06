@@ -3,10 +3,8 @@
         table {
             border: 1px solid black;
             text-align: center;
-            /* border-collapse: collapse; */
             border-spacing: 0;
             width: 100%;
-            /* border: 2px solid #ddd; */
             border: 2px solid black;
         }
 
@@ -15,7 +13,6 @@
             padding: 12px;
             background-color: grey;
             color: #333;
-            /* line-height: 30px; */
         }
 
         td {
@@ -34,11 +31,19 @@
 
     <%= flash[:message] %>
 
-    <h1>Welcome, <%= @current_user.name %>!</h1>
-    <p>Here are your tasks for today!</p>
-    <small><sup>*</sup> Mandatory Field</small>
+    <% if @user == current_user %>
+        <h1>Welcome, <%= current_user.name %>!</h1>
+        <p>Here are your tasks for today!</p>
+        <small><sup>*</sup> Mandatory Field</small>
+        <% else %>
+        <h1>Tasks for: <%= @user.name %>!</h1>
+    <% end %>
+
 
     <div class="task_table">
+
+    <%if @user.tasks.count != 0 %>
+
         <table>
             <tr>
                 <th>Status</th>
@@ -46,7 +51,9 @@
                 <th>Description</th>
                 <th>Priority</th>
                 <th>Deadline</th>
-                <th>Action</th>
+                <% if @user == current_user %>
+                    <th>Action</th>
+                <% end %>
             </tr>
 
            <% @tasks.each do |task| %>
@@ -82,7 +89,7 @@
            <%end%>
 
             <tr> <%# NEW TASK %>
-                <% if current_user %>
+                <% if @user == current_user %>
                     <form method="POST" action="/tasks/new">
                         <td></td>
                         <td><input type="text" name="task[name]"        id="task_name"></td>
@@ -95,10 +102,14 @@
             </tr>     
 
         </table>
+
+        <% else %>
+            <p>This user does not have any tasks.</p>
+        <% end %>
     </div>
 
     <h4>
-    <p>Total Tasks: <%=@current_user.tasks.count%></p>
-    <p>Tasks Completed: <%=@items_completed%></p>
+        <p>Total Tasks: <%=@user.tasks.count%></p>
+        <p>Tasks Completed: <%=@items_completed%></p>
     </h4>
 </body>
