@@ -28,7 +28,7 @@ class TasksController < ApplicationController
         redirect_if_not_logged_in
         if current_user
             task = user_tasks.find_by_id(params[:id])
-            if check_user(task)
+            if check_user_for(task)
                 task.status = "Complete"
                 task.save
                 flash[:message] = "Task Complete. Yay!"
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     delete '/tasks/:id' do #delete task
         redirect_if_not_logged_in
         task = user_tasks.find_by_id(params[:id])
-        if check_user(task)
+        if check_user_for(task)
             task.delete
             flash[:message] = "Task Deleted."
         end
