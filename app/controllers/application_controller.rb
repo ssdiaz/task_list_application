@@ -17,10 +17,6 @@ class ApplicationController < Sinatra::Base
     erb :'welcome'
   end
 
-  get '/about' do
-    erb :'about'
-  end
-
   helpers do
     def current_user #returns current user (obj) or nil, when user is logged in
       User.find_by_id(session[:user_id])
