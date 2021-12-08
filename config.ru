@@ -7,7 +7,11 @@ require 'sinatra' #this file runs our Sinatra library of methods
 
 #to use PATCH, PUT, or DELETE requests / needs to be above the 'run ApplicationControler line'
 #Sinatra uses Rack for it's middleware - connection b/w (our Ruby) app and server
+  #must be placed before ALL controllers in order to use PUT, PATCH, DELETE
 use Rack::MethodOverride
+  # The MethodOverride middleware will interrupt every request sent and received by our application
+    # If it finds a request with name="_method” it will set the request type based on what is set in the value attribute, in this case is patch
+
 
 #this loads the other controllers in the folder.
   use UsersController

@@ -10,6 +10,6 @@ gem 'thin'
 gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
-gem 'sysrandom' #random generator for sessions id
+# gem 'sysrandom' #random generator for sessions id
 gem 'sinatra-flash'
 gem 'tux'

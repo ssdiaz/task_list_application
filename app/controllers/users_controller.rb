@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   post '/login' do
     user = User.find_by(email: params[:email])
-    if user != nil && user.authenticate(params[:password])
+    if user != nil && user.authenticate(params[:password]) #ensure that we have a user & the pw matches/is authenticated with pw_digest
       session[:user_id] = user.id
       redirect to '/tasks'
     end 
