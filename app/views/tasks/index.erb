@@ -78,7 +78,11 @@
     <% end %>
 
     <% if @user != current_user %>
+        <br>
         <p><a href="/community">Back to Community List</a></p>
+        <% else %>
+        <br>
+        <p><a href="/community">Community List</a></p>
     <% end %>
 
 </body>
