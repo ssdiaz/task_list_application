@@ -9,11 +9,13 @@
       </div>
 
       <div class="navbar">
-      <% if !logged_in? %>
-          <a href="/">Home</a>
-          <a href="/login">Login</a>
-          <a href="/signup">Sign Up</a>
-        <%end%>
+        <% if !logged_in? %>
+            <a href="/">Home</a>
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+        <% end %>
+
+        <a href="/about">About</a>
 
         <% if logged_in? %>
           <div class="navbar_logged_in">
