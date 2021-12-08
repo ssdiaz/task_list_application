@@ -2,8 +2,8 @@ class TasksController < ApplicationController
 
     get '/tasks' do  #all tasks page - for current user
         redirect_if_not_logged_in
-        @user = current_user
         if current_user
+            @user = current_user
             @tasks = user_tasks.select {|task| task.user_id == current_user.id}
             @items_completed = @tasks.count {|task| task.status == "Complete"}
             erb :'/tasks/index'
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
         redirect to '/tasks'
     end
 
-    patch '/tasks/:id' do #edit patch status -- need to do when ticked
+    patch '/tasks/:id' do #change status to complete
         redirect_if_not_logged_in
         if current_user
             task = user_tasks.find_by_id(params[:id])
@@ -51,15 +51,12 @@ class TasksController < ApplicationController
 
     get '/:user_id/tasks' do  #all tasks page - for selected user
         redirect_if_not_logged_in
-        #binding.pry
-        @user = User.find_by_id(params[:user_id])
-
         if current_user && logged_in?
+            @user = User.find_by_id(params[:user_id])
             @tasks = @user.tasks.select {|task| task.user_id == @user.id}
             @items_completed = @tasks.count {|task| task.status == "Complete"}
             erb :'/tasks/index'
         end
-
     end
 
 end

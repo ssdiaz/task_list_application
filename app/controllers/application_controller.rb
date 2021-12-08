@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def check_user_for(task) #returns true if task user_id belongs to current user id. false if not.
-      task.user == current_user #task.user_id == current_user.id 
+      task.user == current_user 
     end
 
     def user_tasks

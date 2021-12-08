@@ -7,24 +7,19 @@
             <br>
 
             <form method="POST" action="/account">
-                        <%# <form method="POST" action="/<%= @user.name %>
                 <input id="hidden" type="hidden" name="_method" value="patch">
 
                 <label name="name"><b>Name</b></label><br>
-                <input type="text" id="name" name="user[name]" value="<%= @current_user.name %>">
-                <br>
+                <input type="text" id="name" name="user[name]" value="<%= @user.name %>"><br>
 
                 <label name="email"><b>Email</b></label><br>
-                <input type="text" id="email" name="user[email]" value="<%= @current_user.email %>">
-                <br>
-
+                <input type="text" id="email" name="user[email]" value="<%= @user.email %>"><br>
   
                 <button type="submit">Save Account</button>  
-
-
             </form>
+
             <br>
             <p><a href="/tasks">View Tasks</a></p>
-        </div>
 
+        </div>
   </body>

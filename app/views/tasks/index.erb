@@ -33,11 +33,11 @@
                     <% elsif @user != current_user %>
                         <td><label for="task[status]"><%= task.status %></label></td>
                     <% elsif check_user_for(task) %>
-                            <%# COMPLETE TASK %>
-                            <form method="POST" action="/tasks/<%= task.id %>"> 
-                                <input id="hidden" type="hidden" name="_method" value="patch">
-                                <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
-                            </form>
+                        <%# COMPLETE TASK %>
+                        <form method="POST" action="/tasks/<%= task.id %>"> 
+                            <input id="hidden" type="hidden" name="_method" value="patch">
+                            <td><input type="checkbox" id="task_status" onclick="this.form.submit()"></td>
+                        </form>
                     <% end %>
                     <td><label for="task[name]"><%= task.name %></label></td>
                     <td><label for="task[description]"><%= task.description %></label></td>
@@ -66,7 +66,6 @@
                     </form>
                 </tr>   
             <%end%> 
-
         </table>
     <% end %>
 
@@ -76,13 +75,8 @@
             <p>Tasks Completed: <%=@items_completed%></p>
         </h4>
     <% end %>
-
-    <% if @user != current_user %>
-        <br>
-        <p><a href="/community">Back to Community List</a></p>
-        <% else %>
-        <br>
-        <p><a href="/community">Community List</a></p>
-    <% end %>
+    
+    <br>
+    <p><a href="/community">Community List</a></p>
 
 </body>

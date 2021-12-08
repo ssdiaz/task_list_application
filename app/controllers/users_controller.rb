@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if current_user 
+    if logged_in?
       redirect '/tasks'
     end
     erb :'/users/signup'
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   get '/login' do 
-    if current_user 
+    if logged_in?
       redirect to '/tasks'
     end
     erb :'/users/login'
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   post '/login' do
     user = User.find_by(email: params[:email])
-    if user != nil && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect to '/tasks'
     end 
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
   end
 
   get '/account' do  
-    @current_user = User.find_by_id(session[:user_id])
-    if @current_user
+    if current_user
+      @user = current_user
       erb :'/users/account'
     else
       session.clear
@@ -49,14 +49,17 @@ class UsersController < ApplicationController
   patch '/account' do
     if current_user
       current_user.update(params[:user])
-      flash[:message] = "Success. Profile saved." unless !current_user.update(params[:user])
+      if current_user.update(params[:user])
+        flash[:message] = "Success. Profile saved." 
+      else
+        flash[:message] = "ERROR. Must have Name and unique Email."
+      end
     end
     redirect to '/account'
   end
 
   get '/community' do
     redirect_if_not_logged_in
-
     if current_user && logged_in?
       @users = User.all
     end
