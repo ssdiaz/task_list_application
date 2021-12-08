@@ -6,9 +6,9 @@ class ApplicationController < Sinatra::Base
   register Sinatra::Flash   #to use the Sinatra-Flash gem
 
   configure do
-    #set :public_folder, 'public'
-    set :views, Proc.new { File.join(root, "../views/") }     #set :views, 'app/views'
-    enable :sessions
+    set :views, 'app/views' #set :views, Proc.new { File.join(root, "../views/") }  
+    set :public_folder, 'public' #holds front-end assets like stylesheet
+    enable :sessions #Sinatra to enables cookie sessions; Sinatra defaults has them disabled
     set :session_secret, "7a93f0c56cbcadaffd4764a381b6074924e55a0add0b5c4b553e926a7af30fb7bcadca1ed9a7a447d7df753cca86b07ee28b9775ecdb4f68c17e9cd514d2b999" #puts SecureRandom.hex(64) => 7a93f0c56cbcadaffd4764a381b6074924e55a0add0b5c4b553e926a7af30fb7bcadca1ed9a7a447d7df753cca86b07ee28b9775ecdb4f68c17e9cd514d2b999
   end
 

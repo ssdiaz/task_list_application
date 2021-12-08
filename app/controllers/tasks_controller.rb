@@ -5,6 +5,7 @@ class TasksController < ApplicationController
         @user = current_user
         if current_user
             @tasks = user_tasks.select {|task| task.user_id == current_user.id}
+            #Task.where("user_id = ?", params[:task])
             @items_completed = @tasks.count {|task| task.status == "Complete"}
             erb :'/tasks/index'
         end

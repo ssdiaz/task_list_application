@@ -1,5 +1,6 @@
-# this tells your app in what order to load the files - order matters here
+# this tells your app in what order to LOAD the files - order matters here
 # file helps set up active record
+# the environment.rb files contains things we want to read and make avaiable to our app when it starts
 
 #install our gems first:
 require 'bundler/setup'

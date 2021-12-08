@@ -1,20 +1,21 @@
+#Rack based file (.ru)
+#config.ru details to Rack the environment requirements of the application and this file STARTS our app
+
+# loads our enviroment file (below), code and library. Also loads our application server (using rackup or shotgun)
 require './config/environment'
-require 'sinatra'
+require 'sinatra' #this file runs our Sinatra library of methods
 
 #to use PATCH, PUT, or DELETE requests / needs to be above the 'run ApplicationControler line'
+#Sinatra uses Rack for it's middleware - connection b/w (our Ruby) app and server
 use Rack::MethodOverride
 
 #this loads the other controllers in the folder.
   use UsersController
   use TasksController
-  #--alternative code below-- 
-    # Dir[File.join(File.dirname(__FILE__), "app/controllers", "*.rb")].collect {|file| File.basename(file).split(".")[0] }.reject {|file| file == "application_controller" }.each do |file|
-    #   string_class_name = file.split('_').collect { |w| w.capitalize }.join
-    #   class_name = Object.const_get(string_class_name)
-    #   use class_name
-    # end
 
-#this runs our app 
+#this runs our app by specifiying which controller to load as part of our app
+  #'run' is the mounting method; 'ApplicationController'is the class that inherits from Sinatra::Base
+  #this will create an instance of our ApplicationController class that can repsond to requests from a client
 run ApplicationController
 
 
