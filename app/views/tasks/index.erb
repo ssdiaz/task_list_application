@@ -23,6 +23,7 @@
                 <th>Deadline</th>
                 <% if @user == current_user %>
                     <th>Action</th>
+                    <th>Delete</th>
                 <% end %>
             </tr>
 
@@ -43,6 +44,10 @@
                     <td><label for="task[description]"><%= task.description %></label></td>
                     <td><label for="task[priority]"><%= task.priority %></label></td>
                     <td><label for="task[deadline]"><%= task.deadline %></label></td>
+
+                    <%# EDIT TASK %>
+                    <td><a href="/tasks/<%=task.id%>/edit"><button type="submit">Edit</button></a></td>
+
                     <% if check_user_for(task) %>
                         <%# DELETE TASK %>
                         <form method="POST" action="/tasks/<%=task.id%>"> 
@@ -50,6 +55,7 @@
                             <td><input type="submit"  value="Delete"></td>
                         </form>
                     <%end%>
+
                 </tr>
            <%end%>
     

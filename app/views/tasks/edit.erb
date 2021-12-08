@@ -1,0 +1,34 @@
+<body id="tasks">
+    <div class="message"><%= flash[:message] %></div>
+    
+    <%# displays greeting %>
+        <h1>Edit your task here</h1>
+        <small><sup>*</sup> Mandatory Field</small>
+
+    <%# displays tasks table %>
+    <table>
+        <tr>
+            <th>Status</th>
+            <th>Task<sup>*</sup></th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <% if check_user_for(@task) %>
+                <%# Submit TASK %>
+                <form method="POST" action="/tasks/<%=@task.id%>/edit"> 
+                    <input id="hidden" type="hidden" name="_method" value="patch">
+                    <td><input type="text" value=<%= @task.status %> name="task[status]"></td>
+                    <td><input type="text" value=<%= @task.name %> name="task[name]"></td>
+                    <td><input type="text" value=<%= @task.description %> name="task[description]"></td>
+                    <td><input type="text" value=<%= @task.priority %> name="task[priority]"></td>
+                    <td><input type="text" value=<%= @task.deadline  %> name="task[deadline]"></td>
+                    <td><button type="submit">Submit</button></td>
+                </form>
+            <% end %>
+        </tr>
+    </table>
+</body>

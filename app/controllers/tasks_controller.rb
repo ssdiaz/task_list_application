@@ -24,6 +24,7 @@ class TasksController < ApplicationController
         redirect to '/tasks'
     end
 
+
     patch '/tasks/:id' do #edit patch status -- need to do when ticked
         redirect_if_not_logged_in
         if current_user
@@ -36,6 +37,26 @@ class TasksController < ApplicationController
         end
         redirect to '/tasks'
     end
+
+    get '/tasks/:id/edit' do
+        redirect_if_not_logged_in
+        if current_user
+            @task = user_tasks.find_by_id(params[:id])
+            erb :'/tasks/edit'
+        end
+    end
+
+
+    patch '/tasks/:id/edit' do #edit patch status -- need to do when ticked
+        redirect_if_not_logged_in
+        if current_user
+            @task = user_tasks.find_by_id(params[:id])
+            @task.update(params[:task])
+        end
+        flash[:message] = "Task Saved."
+        redirect to '/tasks'
+    end
+
 
     delete '/tasks/:id' do #delete task
         redirect_if_not_logged_in
