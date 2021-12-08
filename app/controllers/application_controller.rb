@@ -1,4 +1,4 @@
-require './config/environment'
+#require './config/environment' #-- probably nt needed since its loaded with config.ru. SHOULD TEST.
 # require 'securerandom'
 
 class ApplicationController < Sinatra::Base
