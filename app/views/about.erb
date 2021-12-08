@@ -1,0 +1,8 @@
+<body>
+
+    <% if logged_in? %>
+        Thanks for being a member, <%= current_user.name %>!
+    <% else %> 
+        Please <a href="/login">login</a> or <a href="/signup">signup</a>.
+    <% end %>
+</body>
