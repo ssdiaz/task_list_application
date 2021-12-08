@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   patch '/account' do
     if current_user
       current_user.update(params[:user])
-      flash[:message] = "Success. Profile saved." unless !current_user.save
+      flash[:message] = "Success. Profile saved." unless !current_user.update(params[:user])
     end
     redirect to '/account'
   end
