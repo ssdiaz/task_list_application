@@ -5,7 +5,7 @@
     <% if @user == current_user %>
         <h1>Welcome, <%= current_user.name %>!</h1>
         <p>Here are your tasks.</p>
-        <small><sup>*</sup> Mandatory Field</small>
+        <small><sup>*</sup> Required Field</small>
     <% else %>
         <h1>Tasks for: <%= @user.name %></h1>
     <% end %>
@@ -17,7 +17,7 @@
         <table>
             <tr>
                 <th>Status</th>
-                <th>Task<sup>*</sup></th>
+                <th>Task Name<% if @user == current_user %><sup>*</sup></th><% end %>
                 <th>Description</th>
                 <th>Priority</th>
                 <th>Deadline</th>

@@ -19,6 +19,8 @@ class TasksController < ApplicationController
                 task.user_id = session[:user_id]
                 task.save
                 flash[:message] = "Task Added."
+            else
+                flash[:message] = "Must add Task Name to create a new task."
             end
         end
         redirect to '/tasks'
