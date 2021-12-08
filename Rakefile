@@ -1,3 +1,6 @@
+# o	Rake, a gem, helps automate jobs in Ruby and allows us to define rake tasks from the command line
+# o	Task management tool
+
 #We require access to the ‘./config/environment’ file since that’s where our database connection is loaded
 require_relative './config/environment' #loads our environment
 #needed for sinatra-activerecord gem
