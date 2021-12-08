@@ -12,7 +12,7 @@ Bundler.require(:default)
 #ActiveBaRecord::Base keeps the established connection stored as a class variable at ActiveRecord::Base.connection
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
-  :database => "db/task_app.sqlite"
+  :database => "db/task_app.sqlite" #oops should have called this "db/database.sqlite" bc that's what it is. would need to delete the .sqilte file too and re-run the migrations & seed data
 )
 
 # loads all our app content - MVC
