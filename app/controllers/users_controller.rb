@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if current_user #if current user is logged in, redirect to index if they try to access signup.login
+    if current_user 
       redirect '/tasks'
     end
     erb :'/users/signup'
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   get '/login' do 
-    if current_user #if current user is logged in, redirect to index if they try to access signup.login
+    if current_user 
       redirect to '/tasks'
     end
     erb :'/users/login'

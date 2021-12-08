@@ -2,8 +2,7 @@ require './config/environment'
 require 'securerandom'
 
 class ApplicationController < Sinatra::Base
-
-  register Sinatra::Flash   #to use the Sinatra-Flash gem
+  register Sinatra::Flash  
 
   configure do
     set :views, 'app/views'
@@ -13,13 +12,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    if current_user #if current user is logged in, redirect to index if they try to access signup.login
+    if current_user 
       redirect to '/tasks'
     end
     erb :'welcome'
   end
 
-  #invoking helpers method from Sinatra::Base    #and have access to session has w/o needing to pass in as an argument in this controller (that all others inherit from)
   helpers do
     def current_user #returns current user (obj) or nil, when user is logged in
       User.find_by_id(session[:user_id])
