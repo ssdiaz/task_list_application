@@ -17,8 +17,9 @@ class TasksController < ApplicationController
             if  !params[:task][:name].empty? #validating if name is not empty
                 task = Task.new(params[:task])
                 task.status = "Open"
-                task.user_id = session[:user_id]  # current_user.tasks << task
-                task.save
+                # task.user_id = session[:user_id]  # current_user.tasks << task - if you use the shovel method, it will automatically add so you dont need to save. // #task.user_id = current_user.id 
+                current_user.tasks << task
+                # task.save
                 flash[:message] = "Task Added."
             end
         end
