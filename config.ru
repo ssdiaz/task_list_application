@@ -1,5 +1,6 @@
 require './config/environment'
 require 'sinatra'
+require 'sysrandom/securerandom'
 
 use Rack::MethodOverride
 
